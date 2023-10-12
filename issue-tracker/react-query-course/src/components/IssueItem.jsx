@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { GoIssueOpened, GoIssueClosed, GoComment } from 'react-icons/go';
 import { relativeDate } from '../helpers/relativeDate';
+import { LabelItem } from './LabelItem';
+import { ProfileImage } from './ProfileImage';
 
 export function IssueItem({
   title,
@@ -25,9 +27,7 @@ export function IssueItem({
         <span>
           <Link to={`/issue/${number}`}>{title}</Link>
           {labels.map((label) => (
-            <span className="label red" key={label}>
-              {label}
-            </span>
+            <LabelItem key={label} label={label} />
           ))}
         </span>
         <small>
@@ -35,7 +35,7 @@ export function IssueItem({
           {''}#{number} opened {relativeDate(createdDate)} by {createdBy}
         </small>
       </div>
-      {assignee ? <div>{assignee}</div> : null}
+      {assignee ? <ProfileImage userId={assignee} /> : null}
       <span>
         {commentCount > 0 ? (
           <>
