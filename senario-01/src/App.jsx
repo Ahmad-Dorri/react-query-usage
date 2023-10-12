@@ -33,12 +33,15 @@ function App() {
   }
 
   return (
-    <button
-      onClick={() => {
-        forceUpdate();
-      }}>
-      your number is :{loading ? 'loading...' : num}
-    </button>
+    <>
+      <h1>USE EFFECT</h1>
+      <button
+        onClick={() => {
+          forceUpdate();
+        }}>
+        your number is :{loading ? 'loading...' : num}
+      </button>
+    </>
   );
 }
 
