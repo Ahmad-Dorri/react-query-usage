@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
+
+const URL =
+  'https://www.random.org/integers/?num=1&min=1&max=100&col=5&base=10&format=plain&rnd=new';
 
 function App() {
-  const url =
-    'https://www.random.org/integers/?num=1&min=1&max=100&col=5&base=10&format=plain&rnd=new';
+  const [key, forceUpdate] = useReducer((x) => x + 1, 0);
   const [num, setNum] = useState();
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
 
   useEffect(() => {
     setLoading(true);
-    fetch(url)
+    fetch(URL)
       .then((response) => {
         if (response.status !== 200) {
           throw new Error('something went wrong try again.');
@@ -24,13 +26,20 @@ function App() {
         console.log(error);
         setError(error.messsage);
       });
-  }, []);
+  }, [key]);
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  return <div>your number is :{loading ? 'loading...' : num}</div>;
+  return (
+    <button
+      onClick={() => {
+        forceUpdate();
+      }}>
+      your number is :{loading ? 'loading...' : num}
+    </button>
+  );
 }
 
 export default App;
